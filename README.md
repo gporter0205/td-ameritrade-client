@@ -62,7 +62,7 @@ To build the jar, check out the source and run:
 ```bash
 git clone https://github.com/studerw/td-ameritrade-client.git
 cd td-ameritrade-client
-mvn clean install
+mvn clean install -Dgpg.skip
 ```
 You do not need to build the project to use it. The latest release is available on Maven Central,
 so just include the dependency in your Maven pom or Gradle build file. 
@@ -70,8 +70,14 @@ so just include the dependency in your Maven pom or Gradle build file.
 ## Integration Tests
 Integration tests do require a client app ID and refresh token to run.
 
-To run integration tests, you will need to rename the file *src/test/resources/my-test.properties.changeme* 
-to *my-test.properties* and fill in the necessary TDA properties.
+To run integration tests, you will need create the file *src/test/resources/com/studerw/tda/my-test.properties* 
+and fill in the necessary TDA properties:
+
+```properties
+tda.token.refresh=<VALID_REFRESH_TOKEN>
+tda.client_id=<CLIENT_OR_CUSTOMER_ID>
+tda.account.id=<ACCOUNT_ID>
+```
 
 Then run the following command.
 
@@ -194,7 +200,7 @@ Unfortunately the old API is being [deprecated in 2020](https://apiforums.tdamer
 original source code for this project has been moved to the [old-xml-api](https://github.com/studerw/td-ameritrade-client/tree/old-xml-api) branch and is now known as version 1.0.0.
 
 ## TODO
-* Figure out a way to deal with the order ID upon sumitting an order. Either show an example or delay
+* Figure out a way to deal with the order ID upon submitting an order. Either show an example or delay
     - didn't someone mention there is a URL returned in the header to follow up?
 * Use these [ameritrade-api-schemas](https://github.com/blais/ameritrade-api-schemas) to monitor changes to API -> models
 * Junit 5
